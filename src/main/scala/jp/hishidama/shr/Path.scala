@@ -194,7 +194,7 @@ object Path {
   def apply(parent: String, child: HPath) = new Path(new HPath(parent, child))
   def apply(parent: HPath, child: String) = new Path(new HPath(parent, child))
   def apply(parent: HPath, child: HPath) = new Path(new HPath(parent, child))
-  def apply(uri: URI) = new Path(new HPath(uri))
+  def apply(uri: URI) = new Path(new HPath(uri.toString))
 
   var conf = new Configuration
   def fs = FileSystem.get(conf)
@@ -237,7 +237,7 @@ trait LocalPath {
   def home = Path(fs.getHomeDirectory())
   def work = Path(fs.getWorkingDirectory())
   def work_=(w: Path) = fs.setWorkingDirectory(w.hpath)
-  def work_=(w: String) = fs.setWorkingDirectory(new HPath(toFile(w).toURI()))
+  def work_=(w: String) = fs.setWorkingDirectory(new HPath(toFile(w).toURI().toString))
 }
 
 object LocalPath extends LocalPath
